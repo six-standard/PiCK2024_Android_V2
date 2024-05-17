@@ -1,8 +1,19 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, Text, useColorScheme} from 'react-native';
-import {Navigation} from './src';
+import React, { useEffect } from "react";
+import { SafeAreaView, StatusBar, Text, useColorScheme } from "react-native";
+import { Navigation } from "./src";
+import { colors } from "@/utils";
+import { mode } from "./mode";
+import changeNavigationBarColor from "react-native-navigation-bar-color";
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    const example = async () => {
+      await changeNavigationBarColor(colors("background") as string);
+    };
+
+    example();
+  }, []);
+
   // const isDarkMode = useColorScheme() === 'dark';
 
   // const backgroundStyle = {
@@ -12,11 +23,11 @@ function App(): React.JSX.Element {
 
   return (
     <>
+      <StatusBar
+        backgroundColor={colors("background")}
+        barStyle={`${mode === "light" ? "dark" : "light"}-content`}
+      />
       <Navigation />
-      {/* <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      /> */}
     </>
   );
 }
